@@ -25,6 +25,7 @@ struct gameRole {
 	int red_key;    //红钥匙
 	int exp;        //经验
 	int building_level; //层数
+	int suc; //是否成功移动
 }role;
 
 void putrole()
@@ -39,6 +40,7 @@ void putrole()
 	role.blue_key = 100;
 	role.red_key = 100;
 	role.exp = 0;
+	role.suc = 0;
 }
 
 IMAGE img[42];
@@ -93,7 +95,7 @@ void drawmap(int n)
 	outtextxy(780, 720, intToWcahr(role.red_key));
 }
 
-gameRole fight(lua_State *L, gameRole role, int pos)
+gameRole move(lua_State *L, gameRole role, int pos)
 {
 	lua_getglobal(L, "move");
 	lua_newtable(L);
@@ -105,6 +107,8 @@ gameRole fight(lua_State *L, gameRole role, int pos)
 	lua_setfield(L, -2, "bule");
 	lua_pushinteger(L, role.attack);
 	lua_setfield(L, -2, "attack");
+	lua_pushinteger(L, role.defence);
+	lua_setfield(L, -2, "defence");
 	lua_pushinteger(L, role.exp);
 	lua_setfield(L, -2, "exp");
 	lua_pushinteger(L, role.yellow_key);
@@ -115,9 +119,45 @@ gameRole fight(lua_State *L, gameRole role, int pos)
 	lua_setfield(L, -2, "red_key");
 	lua_pushinteger(L, role.building_level);
 	lua_setfield(L, -2, "building_level");
+	lua_pushinteger(L, role.suc);
+	lua_setfield(L, -2, "suc");
 	lua_pushinteger(L, pos);
-	lua_pcall(L, 2, 1, 0);
 
+	lua_pcall(L, 2, 1, 0);
+	
+	lua_getfield(L, -1, "level");
+	role.level = lua_tointeger(L, -1);
+	lua_pop(L, -1);
+	lua_getfield(L, -1, "life");
+	role.life = lua_tointeger(L, -1);
+	lua_pop(L, -1);
+	lua_getfield(L, -1, "blue");
+	role.blue = lua_tointeger(L, -1);
+	lua_pop(L, -1);
+	lua_getfield(L, -1, "attack");
+	role.attack = lua_tointeger(L, -1);
+	lua_pop(L, -1);
+	lua_getfield(L, -1, "defence");
+	role.defence = lua_tointeger(L, -1);
+	lua_pop(L, -1);
+	lua_getfield(L, -1, "exp");
+	role.exp = lua_tointeger(L, -1);
+	lua_pop(L, -1);
+	lua_getfield(L, -1, "yellow_key");
+	role.yellow_key = lua_tointeger(L, -1);
+	lua_pop(L, -1);
+	lua_getfield(L, -1, "blue_key");
+	role.blue_key = lua_tointeger(L, -1);
+	lua_pop(L, -1);
+	lua_getfield(L, -1, "red_key");
+	role.red_key = lua_tointeger(L, -1);
+	lua_pop(L, -1);
+	lua_getfield(L, -1, "building_level");
+	role.building_level = lua_tointeger(L, -1);
+	lua_pop(L, -1);
+	lua_getfield(L, -1, "suc");
+	role.suc = lua_tointeger(L, -1);
+	lua_pop(L, -1);
 
 	return role;
 }
@@ -136,7 +176,11 @@ void getkey(lua_State *L)
 	switch (key)
 	{
 	case 75:
-		fight(L, role, map[N][i][j]);
+		move(L, role, map[N][i][j]);
+		if (role.suc == 1)
+		{
+
+		}
 	}
 }
 
@@ -144,10 +188,14 @@ int main()
 {
 	initgraph(900,  780);
 	loadresource();
+	lua_State* L;
 	//putimage(0, 0, &img[1]);
 	drawmap(N);
 	//loadimage(img+0,"../res/0.jpg",60,60);
 	//putimage(0, 0, &img[0]);
+	while (1) {
+		drawmap(N);
+	}
 	system("pause");
 	return 0;
 }

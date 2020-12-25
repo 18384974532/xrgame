@@ -1,27 +1,19 @@
 ﻿  源.cpp
+C:\Users\xuran\Desktop\mygit\game\xrgame\mota1\mota1\源.cpp(129,15): warning C4244: “=”: 从“lua_Integer”转换到“int”，可能丢失数据
+C:\Users\xuran\Desktop\mygit\game\xrgame\mota1\mota1\源.cpp(132,14): warning C4244: “=”: 从“lua_Integer”转换到“int”，可能丢失数据
+C:\Users\xuran\Desktop\mygit\game\xrgame\mota1\mota1\源.cpp(135,14): warning C4244: “=”: 从“lua_Integer”转换到“int”，可能丢失数据
+C:\Users\xuran\Desktop\mygit\game\xrgame\mota1\mota1\源.cpp(138,16): warning C4244: “=”: 从“lua_Integer”转换到“int”，可能丢失数据
+C:\Users\xuran\Desktop\mygit\game\xrgame\mota1\mota1\源.cpp(141,17): warning C4244: “=”: 从“lua_Integer”转换到“int”，可能丢失数据
+C:\Users\xuran\Desktop\mygit\game\xrgame\mota1\mota1\源.cpp(144,13): warning C4244: “=”: 从“lua_Integer”转换到“int”，可能丢失数据
+C:\Users\xuran\Desktop\mygit\game\xrgame\mota1\mota1\源.cpp(147,20): warning C4244: “=”: 从“lua_Integer”转换到“int”，可能丢失数据
+C:\Users\xuran\Desktop\mygit\game\xrgame\mota1\mota1\源.cpp(150,18): warning C4244: “=”: 从“lua_Integer”转换到“int”，可能丢失数据
+C:\Users\xuran\Desktop\mygit\game\xrgame\mota1\mota1\源.cpp(153,17): warning C4244: “=”: 从“lua_Integer”转换到“int”，可能丢失数据
+C:\Users\xuran\Desktop\mygit\game\xrgame\mota1\mota1\源.cpp(156,24): warning C4244: “=”: 从“lua_Integer”转换到“int”，可能丢失数据
+C:\Users\xuran\Desktop\mygit\game\xrgame\mota1\mota1\源.cpp(159,13): warning C4244: “=”: 从“lua_Integer”转换到“int”，可能丢失数据
+C:\Users\xuran\Desktop\mygit\game\xrgame\mota1\mota1\源.cpp(187,13): warning C4101: “L”: 未引用的局部变量
   lua-5.4.2.lib(lapi.obj) : 找到 MSIL .netmodule 或使用 /GL 编译的模块；正在使用 /LTCG 重新启动链接；将 /LTCG 添加到链接命令行以改进链接器性能
 LINK : warning LNK4075: 忽略“/INCREMENTAL”(由于“/LTCG”规范)
 LINK : warning LNK4098: 默认库“MSVCRT”与其他库的使用冲突；请使用 /NODEFAULTLIB:library
   正在生成代码
   已完成代码的生成
-lua-5.4.2.lib(lapi.obj) : warning LNK4099: 未找到 PDB“lua-5.4.2.pdb”(使用“lua-5.4.2.lib(lapi.obj)”或在“F:\mota\mota1\Debug\lua-5.4.2.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-lua-5.4.2.lib(lvm.obj) : warning LNK4099: 未找到 PDB“lua-5.4.2.pdb”(使用“lua-5.4.2.lib(lvm.obj)”或在“F:\mota\mota1\Debug\lua-5.4.2.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-lua-5.4.2.lib(ltable.obj) : warning LNK4099: 未找到 PDB“lua-5.4.2.pdb”(使用“lua-5.4.2.lib(ltable.obj)”或在“F:\mota\mota1\Debug\lua-5.4.2.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-lua-5.4.2.lib(lobject.obj) : warning LNK4099: 未找到 PDB“lua-5.4.2.pdb”(使用“lua-5.4.2.lib(lobject.obj)”或在“F:\mota\mota1\Debug\lua-5.4.2.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-lua-5.4.2.lib(lstate.obj) : warning LNK4099: 未找到 PDB“lua-5.4.2.pdb”(使用“lua-5.4.2.lib(lstate.obj)”或在“F:\mota\mota1\Debug\lua-5.4.2.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-lua-5.4.2.lib(ldo.obj) : warning LNK4099: 未找到 PDB“lua-5.4.2.pdb”(使用“lua-5.4.2.lib(ldo.obj)”或在“F:\mota\mota1\Debug\lua-5.4.2.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-lua-5.4.2.lib(lgc.obj) : warning LNK4099: 未找到 PDB“lua-5.4.2.pdb”(使用“lua-5.4.2.lib(lgc.obj)”或在“F:\mota\mota1\Debug\lua-5.4.2.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-lua-5.4.2.lib(ldebug.obj) : warning LNK4099: 未找到 PDB“lua-5.4.2.pdb”(使用“lua-5.4.2.lib(ldebug.obj)”或在“F:\mota\mota1\Debug\lua-5.4.2.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-lua-5.4.2.lib(lfunc.obj) : warning LNK4099: 未找到 PDB“lua-5.4.2.pdb”(使用“lua-5.4.2.lib(lfunc.obj)”或在“F:\mota\mota1\Debug\lua-5.4.2.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-lua-5.4.2.lib(lzio.obj) : warning LNK4099: 未找到 PDB“lua-5.4.2.pdb”(使用“lua-5.4.2.lib(lzio.obj)”或在“F:\mota\mota1\Debug\lua-5.4.2.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-lua-5.4.2.lib(lstring.obj) : warning LNK4099: 未找到 PDB“lua-5.4.2.pdb”(使用“lua-5.4.2.lib(lstring.obj)”或在“F:\mota\mota1\Debug\lua-5.4.2.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-lua-5.4.2.lib(ldump.obj) : warning LNK4099: 未找到 PDB“lua-5.4.2.pdb”(使用“lua-5.4.2.lib(ldump.obj)”或在“F:\mota\mota1\Debug\lua-5.4.2.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-lua-5.4.2.lib(ltm.obj) : warning LNK4099: 未找到 PDB“lua-5.4.2.pdb”(使用“lua-5.4.2.lib(ltm.obj)”或在“F:\mota\mota1\Debug\lua-5.4.2.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-lua-5.4.2.lib(lmem.obj) : warning LNK4099: 未找到 PDB“lua-5.4.2.pdb”(使用“lua-5.4.2.lib(lmem.obj)”或在“F:\mota\mota1\Debug\lua-5.4.2.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-lua-5.4.2.lib(lctype.obj) : warning LNK4099: 未找到 PDB“lua-5.4.2.pdb”(使用“lua-5.4.2.lib(lctype.obj)”或在“F:\mota\mota1\Debug\lua-5.4.2.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-lua-5.4.2.lib(llex.obj) : warning LNK4099: 未找到 PDB“lua-5.4.2.pdb”(使用“lua-5.4.2.lib(llex.obj)”或在“F:\mota\mota1\Debug\lua-5.4.2.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-lua-5.4.2.lib(lundump.obj) : warning LNK4099: 未找到 PDB“”(使用“lua-5.4.2.lib(lundump.obj)”或在“”中寻找)；正在链接对象，如同没有调试信息一样
-lua-5.4.2.lib(lparser.obj) : warning LNK4099: 未找到 PDB“lua-5.4.2.pdb”(使用“lua-5.4.2.lib(lparser.obj)”或在“F:\mota\mota1\Debug\lua-5.4.2.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-lua-5.4.2.lib(lopcodes.obj) : warning LNK4099: 未找到 PDB“lua-5.4.2.pdb”(使用“lua-5.4.2.lib(lopcodes.obj)”或在“F:\mota\mota1\Debug\lua-5.4.2.pdb”中寻找)；正在链接对象，如同没有调试信息一样
-lua-5.4.2.lib(lcode.obj) : warning LNK4099: 未找到 PDB“”(使用“lua-5.4.2.lib(lcode.obj)”或在“”中寻找)；正在链接对象，如同没有调试信息一样
-  mota1.vcxproj -> F:\mota\mota1\Debug\mota1.exe
+  mota1.vcxproj -> C:\Users\xuran\Desktop\mygit\game\xrgame\mota1\Debug\mota1.exe

@@ -97,6 +97,7 @@ void drawmap(int n)
 
 gameRole move(lua_State *L, gameRole role, int pos)
 {
+	luaL_loadfile(L, "some.lua");
 	lua_getglobal(L, "move");
 	lua_newtable(L);
 	lua_pushinteger(L, role.level);

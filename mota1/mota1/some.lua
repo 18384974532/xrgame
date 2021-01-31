@@ -52,11 +52,13 @@ local function mdoor(player, pos)
 	return player
 end
 local function move(player, pos)
-	if pos < 1000 then
-		fight(player, pos)
-	elseif pos < 2000 then
-		mwall(player, pos)
-	elseif pos < 3000 then
+	if pos >= 3000 then
+		--1000
+	elseif pos >= 2000 then
 		mdoor(player, pos)
+	elseif pos >= 1000 then
+		mwall(player, pos)
+	elseif pos >= 0 then
+		fight(player, pos)
 	end
 end

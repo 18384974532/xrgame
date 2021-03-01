@@ -43,14 +43,28 @@ void putrole()
 	role.suc = 0;
 }
 
-IMAGE img[42];
+IMAGE monsterImg[42];
+IMAGE wallImg[1];
+IMAGE doorImg[1];
 void loadresource()
 {
 	for (int i = 0; i < 42; i++)
 	{
 		char filename[20] = "";
 		sprintf(filename, "../res/%d.jpg", i);
-		loadimage(img + i, filename, 60, 60);
+		loadimage(monsterImg + i, filename, 60, 60);
+	}
+	for (int i = 1000; i < 1001; i++)
+	{
+		char filename[20] = "";
+		sprintf(filename, "../res/%d.jpg", i);
+		loadimage(wallImg + (i-1000), filename, 60, 60);
+	}
+	for (int i = 2000; i < 2000; i++)
+	{
+		char filename[20] = "";
+		sprintf(filename, "../res/%d.jpg", i);
+		loadimage(doorImg + (i-2000), filename, 60, 60);
 	}
 }
 
@@ -66,13 +80,20 @@ void drawmap(int n)
 		{
 			x = 60 * j;
 			y = 60 * i;
-			putimage(x, y, &img[map[N][i][j]]);
+			if (map[N][i][j] >= 3000)
+				;
+			else if(map[N][i][j] >= 2000)
+				putimage(x, y, doorImg + map[N][i][j]);
+			else if (map[N][i][j] >= 1000)
+				putimage(x, y, wallImg + map[N][i][j]);
+			else
+				putimage(x, y, monsterImg + map[N][i][j]);
 		}
 		for (int j = 13; j < 15; j++)
 		{
 			x = 60 * j;
 			y = 60 * i;
-			putimage(x, y, &img[map[0][1][11]]);
+			putimage(x, y, &monsterImg[map[0][1][11]]);
 		}
 	}
 	outtextxy(780, 40, "角色等级:");

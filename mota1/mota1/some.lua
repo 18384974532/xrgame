@@ -16,7 +16,7 @@ local function fight(player, pos)
 	if mattackp < 0 then
 		mattackp = 0
 	end
-	if m.life / pattackm == 0 then
+	if m.life % pattackm == 0 then
 		round = m.life / pattackm - 1
 	else
 		round = m.life / pattackm

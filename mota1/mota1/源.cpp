@@ -41,6 +41,7 @@ void putrole()
 	role.red_key = 100;
 	role.exp = 0;
 	role.suc = 0;
+	role.building_level = 1;
 }
 
 IMAGE monsterImg[42];
@@ -118,7 +119,6 @@ void drawmap(int n)
 
 gameRole move(lua_State *L, gameRole role, int pos)
 {
-	luaL_loadfile(L, "some.lua");
 	lua_getglobal(L, "move");
 	lua_newtable(L);
 	lua_pushinteger(L, role.level);
@@ -149,37 +149,37 @@ gameRole move(lua_State *L, gameRole role, int pos)
 	
 	lua_getfield(L, -1, "level");
 	role.level = lua_tointeger(L, -1);
-	lua_pop(L, -1);
+	lua_pop(L, 1);
 	lua_getfield(L, -1, "life");
 	role.life = lua_tointeger(L, -1);
-	lua_pop(L, -1);
+	lua_pop(L, 1);
 	lua_getfield(L, -1, "blue");
 	role.blue = lua_tointeger(L, -1);
-	lua_pop(L, -1);
+	lua_pop(L, 1);
 	lua_getfield(L, -1, "attack");
 	role.attack = lua_tointeger(L, -1);
-	lua_pop(L, -1);
+	lua_pop(L, 1);
 	lua_getfield(L, -1, "defence");
 	role.defence = lua_tointeger(L, -1);
-	lua_pop(L, -1);
+	lua_pop(L, 1);
 	lua_getfield(L, -1, "exp");
 	role.exp = lua_tointeger(L, -1);
-	lua_pop(L, -1);
+	lua_pop(L, 1);
 	lua_getfield(L, -1, "yellow_key");
 	role.yellow_key = lua_tointeger(L, -1);
-	lua_pop(L, -1);
+	lua_pop(L, 1);
 	lua_getfield(L, -1, "blue_key");
 	role.blue_key = lua_tointeger(L, -1);
-	lua_pop(L, -1);
+	lua_pop(L, 1);
 	lua_getfield(L, -1, "red_key");
 	role.red_key = lua_tointeger(L, -1);
-	lua_pop(L, -1);
+	lua_pop(L, 1);
 	lua_getfield(L, -1, "building_level");
 	role.building_level = lua_tointeger(L, -1);
-	lua_pop(L, -1);
+	lua_pop(L, 1);
 	lua_getfield(L, -1, "suc");
 	role.suc = lua_tointeger(L, -1);
-	lua_pop(L, -1);
+	lua_pop(L, 1);
 
 	return role;
 }
@@ -193,15 +193,21 @@ void getkey(lua_State *L)
 		for (j = 0; j < 13; j++)
 			if (map[N][i][j] == 2)
 				break;
+		if (map[N][i][j] == 2)
+			break;
 	}
 	key = _getch();
 	switch (key)
 	{
-	case 75:
-		move(L, role, map[N][i][j]);
-		if (role.suc == 1)
+	case 'w':
+		if (i > 0)
 		{
-
+			role = move(L, role, map[N][i-1][j]);
+			if (role.suc == 1)
+			{
+				map[N][i][j] = 1;
+				map[N][i-1][j] = 2;
+			}
 		}
 	}
 }
@@ -210,13 +216,16 @@ int main()
 {
 	initgraph(900,  780);
 	loadresource();
-	lua_State* L;
+	putrole();
+	lua_State* L = luaL_newstate();
+	luaL_loadfile(L, "some.lua");
 	//putimage(0, 0, &img[1]);
 	drawmap(N);
 	//loadimage(img+0,"../res/0.jpg",60,60);
 	//putimage(0, 0, &img[0]);
 	while (1) {
 		drawmap(N);
+		getkey(L);
 	}
 	system("pause");
 	return 0;

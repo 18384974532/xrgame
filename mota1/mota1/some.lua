@@ -2,7 +2,8 @@ local monster = require "monster"
 local door = require "door"
 local wall = require "wall"
 
-local function fight(player, pos)
+function fight(player, pos)
+print(debug.traceback())
 	local m = monster[pos]
 	if not m then
 		return
@@ -27,7 +28,6 @@ local function fight(player, pos)
 		player.life = player.life - round*mattackp
 		player.exp = player.exp + m.exp
 		player.suc = 1
-		return player
 	end
 end
 
@@ -51,7 +51,8 @@ local function mdoor(player, pos)
 	end
 	return player
 end
-local function move(player, pos)
+
+function move(player, pos)
 	if pos >= 3000 then
 		--1000
 	elseif pos >= 2000 then
@@ -61,4 +62,5 @@ local function move(player, pos)
 	elseif pos >= 0 then
 		fight(player, pos)
 	end
+	return player
 end

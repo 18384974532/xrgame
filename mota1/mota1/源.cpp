@@ -41,12 +41,12 @@ void putrole()
 	role.red_key = 100;
 	role.exp = 0;
 	role.suc = 0;
-	role.building_level = 1;
+	role.building_level = 0;
 }
 
 IMAGE monsterImg[42];
 IMAGE wallImg[2];
-IMAGE doorImg[3];
+IMAGE doorImg[5];
 IMAGE itemImg[5];
 void loadresource()
 {
@@ -62,7 +62,7 @@ void loadresource()
 		sprintf(filename, "../res/%d.jpg", i);
 		loadimage(wallImg + (i-1000), filename, 60, 60);
 	}
-	for (int i = 2000; i < 2003; i++)
+	for (int i = 2000; i < 2005; i++)
 	{
 		char filename[20] = "";
 		sprintf(filename, "../res/%d.jpg", i);
@@ -76,7 +76,7 @@ void loadresource()
 	}
 }
 
-int N = 0;
+int building_level = 0;
 
 void drawmap(int n)
 {
@@ -88,20 +88,20 @@ void drawmap(int n)
 		{
 			x = 60 * j;
 			y = 60 * i;
-			if (map[N][i][j] >= 3000)
-				putimage(x, y, itemImg + (map[N][i][j] - 3000));
-			else if(map[N][i][j] >= 2000)
-				putimage(x, y, doorImg + (map[N][i][j]-2000));
-			else if (map[N][i][j] >= 1000)
-				putimage(x, y, wallImg + (map[N][i][j]-1000));
+			if (map[role.building_level][i][j] >= 3000)
+				putimage(x, y, itemImg + (map[role.building_level][i][j] - 3000));
+			else if(map[role.building_level][i][j] >= 2000)
+				putimage(x, y, doorImg + (map[role.building_level][i][j]-2000));
+			else if (map[role.building_level][i][j] >= 1000)
+				putimage(x, y, wallImg + (map[role.building_level][i][j]-1000));
 			else
-				putimage(x, y, monsterImg + map[N][i][j]);
+				putimage(x, y, monsterImg + map[role.building_level][i][j]);
 		}
 		for (int j = 13; j < 15; j++)
 		{
 			x = 60 * j;
 			y = 60 * i;
-			putimage(x, y, &monsterImg[map[0][1][11]]);
+			putimage(x, y, &wallImg[1]);
 		}
 	}
 	outtextxy(780, 40, "角色等级:");
@@ -121,7 +121,7 @@ void drawmap(int n)
 	outtextxy(780, 600, "蓝钥匙:");
 	outtextxy(780, 640, intToWcahr(role.blue_key));
 	outtextxy(780, 680, "红钥匙:");
-	outtextxy(780, 720, intToWcahr(role.red_key));
+	outtextxy(780, 720, intToWcahr(role.building_level));
 }
 
 void move(lua_State *L, gameRole *role, int pos)
@@ -133,7 +133,7 @@ void move(lua_State *L, gameRole *role, int pos)
 	lua_pushinteger(L, role->life);
 	lua_setfield(L, -2, "life");
 	lua_pushinteger(L,  role->blue);
-	lua_setfield(L, -2, "bule");
+	lua_setfield(L, -2, "blue");
 	lua_pushinteger(L, role->attack);
 	lua_setfield(L, -2, "attack");
 	lua_pushinteger(L, role->defence);
@@ -206,9 +206,9 @@ void getkey(lua_State *L)
 	for (i = 0; i < 13; i++)
 	{
 		for (j = 0; j < 13; j++)
-			if (map[N][i][j] == 2)
+			if (map[role.building_level][i][j] == 2)
 				break;
-		if (map[N][i][j] == 2)
+		if (map[role.building_level][i][j] == 2)
 			break;
 	}
 	key = _getch();
@@ -217,13 +217,50 @@ void getkey(lua_State *L)
 	case 'w':
 		if (i > 0)
 		{
-			move(L, &role, map[N][i-1][j]);
+			move(L, &role, map[role.building_level][i - 1][j]);
 			if (role.suc == 1)
 			{
-				map[N][i][j] = 1;
-				map[N][i-1][j] = 2;
+				map[role.building_level][i][j] = 1001;
+				map[role.building_level][i - 1][j] = 2;
 				role.suc = 0;
 			}
+			break;
+		}
+	case 'a':
+		if (j > 0)
+		{
+			move(L, &role, map[role.building_level][i][j - 1]);
+			if (role.suc == 1)
+			{
+				map[role.building_level][i][j] = 1001;
+				map[role.building_level][i][j - 1] = 2;
+				role.suc = 0;
+			}
+			break;
+		}
+	case 's':
+		if (i < 13)
+		{
+			move(L, &role, map[role.building_level][i + 1][j]);
+			if (role.suc == 1)
+			{
+				map[role.building_level][i][j] = 1001;
+				map[role.building_level][i + 1][j] = 2;
+				role.suc = 0;
+			}
+			break;
+		}
+	case 'd':
+		if (j < 13)
+		{
+			move(L, &role, map[role.building_level][i][j + 1]);
+			if (role.suc == 1)
+			{
+				map[role.building_level][i][j] = 1001;
+				map[role.building_level][i][j + 1] = 2;
+				role.suc = 0;
+			}
+			break;
 		}
 	}
 }
@@ -237,11 +274,11 @@ int main()
 	luaL_openlibs(L);
 	luaL_dofile(L, "some.lua");
 	//putimage(0, 0, &img[1]);
-	drawmap(N);
+	drawmap(role.building_level);
 	//loadimage(img+0,"../res/0.jpg",60,60);
 	//putimage(0, 0, &img[0]);
 	while (1) {
-		drawmap(N);
+		drawmap(role.building_level);
 		getkey(L);
 	}
 	system("pause");

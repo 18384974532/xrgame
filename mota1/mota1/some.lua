@@ -1,9 +1,9 @@
 local monster = require "monster"
 local door = require "door"
 local wall = require "wall"
+local item = require "item"
 
-function fight(player, pos)
-print(debug.traceback())
+local function fight(player, pos)
 	local m = monster[pos]
 	if not m then
 		return
@@ -31,7 +31,7 @@ print(debug.traceback())
 	end
 end
 
-local function mwall(player, pos)
+local function meet_wall(player, pos)
 	local w = wall[pos]
 	if not w then
 		return
@@ -44,21 +44,43 @@ local function mwall(player, pos)
 	return player
 end
 
-local function mdoor(player, pos)
+local function meet_door(player, pos)
 	local d = door[pos]
 	if not d then
 		return
 	end
+	if player[d.needKey] then --player.yellow_key
+		player[d.needKey] = player[d.needKey] - 1
+		player.suc = 1
+	elseif d.uodStair then
+		player.building_level = player.building_level + d.uodStair
+	end
+	return player
+end
+
+local function meet_item(player, pos)
+	local i = item[pos]
+	if not i then
+		return
+	end
+	for k, v in pairs(i) do
+		if k == 'attributeUp' then
+			for k1, v1 in pairs(v) do
+				player[k1] = player[k1] + v1
+			end
+		end
+	end
+	player.suc = 1
 	return player
 end
 
 function move(player, pos)
 	if pos >= 3000 then
-		--1000
+		meet_item(player, pos)
 	elseif pos >= 2000 then
-		mdoor(player, pos)
+		meet_door(player, pos)
 	elseif pos >= 1000 then
-		mwall(player, pos)
+		meet_wall(player, pos)
 	elseif pos >= 0 then
 		fight(player, pos)
 	end

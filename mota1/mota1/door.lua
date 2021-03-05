@@ -5,8 +5,11 @@ local door = {
 	[2001] = {
 		['needKey'] = 'blue_key'
 	},
+	[2002] = {
+		['needKey'] = 'blue_key'
+	},
 	[2004] = {
 		['uodStair'] = 1
-	}
+	},
 }
 return door

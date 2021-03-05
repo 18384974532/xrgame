@@ -13,6 +13,8 @@ extern "C"
 #include<lualib.h>
 }
 
+int map[1][13][13];
+
 struct gameRole {
 	char rolename[20];
 	int life;       //生命值
@@ -48,6 +50,7 @@ IMAGE monsterImg[42];
 IMAGE wallImg[2];
 IMAGE doorImg[5];
 IMAGE itemImg[5];
+
 void loadresource()
 {
 	for (int i = 0; i < 42; i++)
@@ -75,8 +78,6 @@ void loadresource()
 		loadimage(itemImg + (i - 3000), filename, 60, 60);
 	}
 }
-
-int building_level = 0;
 
 void drawmap(int n)
 {
@@ -122,6 +123,36 @@ void drawmap(int n)
 	outtextxy(780, 640, intToWcahr(role.blue_key));
 	outtextxy(780, 680, "红钥匙:");
 	outtextxy(780, 720, intToWcahr(role.building_level));
+}
+
+void set_map(lua_State* L, int map[][13][13])
+{
+	lua_getglobal(L, "map");
+	int index = lua_gettop(L);
+	int indexA = 0;
+	lua_pushnil(L);
+	while (lua_next(L, index))
+	{
+		int tempIndex = lua_gettop(L);
+		lua_pushnil(L);
+		int count = 0;
+		while (lua_next(L, tempIndex))
+		{
+			int temp2Index = lua_gettop(L);
+			lua_pushnil(L);
+			int count1 = 0;
+			while (lua_next(L, temp2Index))
+			{
+				int card = luaL_checkinteger(L, -1);
+				map[indexA][count][count1++] = card;
+				lua_pop(L, 1);
+			}
+			count++;
+			lua_pop(L, 1);
+		}
+		indexA++;
+		lua_pop(L, 1);
+	}
 }
 
 void move(lua_State *L, gameRole *role, int pos)
@@ -270,6 +301,11 @@ int main()
 	initgraph(900,  780);
 	loadresource();
 	putrole();
+	lua_State* mapL = luaL_newstate();
+	luaL_openlibs(mapL);
+	luaL_dofile(mapL, "map.lua");
+	set_map(mapL, map);
+
 	lua_State* L = luaL_newstate();
 	luaL_openlibs(L);
 	luaL_dofile(L, "some.lua");

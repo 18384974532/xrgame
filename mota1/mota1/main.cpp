@@ -16,32 +16,46 @@ extern "C"
 int map[1][13][13];
 
 struct gameRole {
-	char rolename[20];
-	int life;       //生命值
 	int level;      //等级
+	int exp;        //经验
+	int life;       //生命值
 	int blue;       //蓝量
-	int defence;    //防御
 	int attack;     //攻击
+	int defence;    //防御
 	int yellow_key; //黄钥匙
 	int blue_key;   //蓝钥匙
 	int red_key;    //红钥匙
-	int exp;        //经验
 	int building_level; //层数
 	int suc; //是否成功移动
 }role;
+
+void set_player(lua_State* L)
+{
+	lua_getglobal(L, "player");
+	int i = 0;
+	int *p = &role.level;
+	int index = lua_gettop(L);
+	lua_pushnil(L);
+	while (lua_next(L, index))
+	{
+		int value = luaL_checkinteger(L, -1);
+		(*p++) = value;
+		lua_pop(L, 1);
+	}
+}
 
 void putrole()
 {
 	//role.rolename = 'x';
 	role.level = 1;
+	role.exp = 0;
 	role.life = 10000;
 	role.blue = 200;
-	role.attack = 1000;
+	role.attack = 1;
 	role.defence = 1000;
 	role.yellow_key = 100;
 	role.blue_key = 100;
 	role.red_key = 100;
-	role.exp = 0;
 	role.suc = 0;
 	role.building_level = 0;
 }
@@ -300,7 +314,13 @@ int main()
 {
 	initgraph(900,  780);
 	loadresource();
-	putrole();
+	//putrole();
+
+	lua_State* pL = luaL_newstate();
+	luaL_openlibs(pL);
+	luaL_dofile(pL, "player.lua");
+	set_player(pL);
+
 	lua_State* mapL = luaL_newstate();
 	luaL_openlibs(mapL);
 	luaL_dofile(mapL, "map.lua");

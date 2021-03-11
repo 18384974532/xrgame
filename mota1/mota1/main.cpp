@@ -22,7 +22,7 @@ int main()
 {
 	initgraph(900,  780);
 	loadresource();
-	//putrole();
+	
 
 	lua_State* pL = luaL_newstate();
 	luaL_openlibs(pL);

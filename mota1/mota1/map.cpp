@@ -20,7 +20,7 @@ IMAGE wallImg[2];
 IMAGE doorImg[5];
 IMAGE itemImg[5];
 
-int map[1][13][13];
+int map[50][13][13];
 extern gameRole role;
 
 void loadresource()

@@ -107,7 +107,14 @@ void getkey(lua_State* L)
 	key = _getch();
 	switch (key)
 	{
+	case 27:
+	{
+		esc();
+		break;
+	}
+
 	case 'w':
+	case 72:
 		if (i > 0)
 		{
 			move(L, &role, map[role.building_level][i - 1][j]);
@@ -120,6 +127,7 @@ void getkey(lua_State* L)
 			break;
 		}
 	case 'a':
+	case 75:
 		if (j > 0)
 		{
 			move(L, &role, map[role.building_level][i][j - 1]);
@@ -132,6 +140,7 @@ void getkey(lua_State* L)
 			break;
 		}
 	case 's':
+	case 80:
 		if (i < 13)
 		{
 			move(L, &role, map[role.building_level][i + 1][j]);
@@ -144,6 +153,7 @@ void getkey(lua_State* L)
 			break;
 		}
 	case 'd':
+	case 77:
 		if (j < 13)
 		{
 			move(L, &role, map[role.building_level][i][j + 1]);

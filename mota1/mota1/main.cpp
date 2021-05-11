@@ -22,21 +22,13 @@ int main()
 {
 	initgraph(900,  780);
 	loadresource();
-	
-
-	lua_State* pL = luaL_newstate();
-	luaL_openlibs(pL);
-	luaL_dofile(pL, "player.lua");
-	set_player(pL);
-
-	lua_State* mapL = luaL_newstate();
-	luaL_openlibs(mapL);
-	luaL_dofile(mapL, "map.lua");
-	set_map(mapL, map);
 
 	lua_State* L = luaL_newstate();
 	luaL_openlibs(L);
 	luaL_dofile(L, "some.lua");
+
+	load_data();
+
 	drawmap(role.building_level);
 
 	while (1) {

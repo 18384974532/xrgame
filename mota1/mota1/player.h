@@ -27,3 +27,7 @@ struct gameRole {
 };
 
 void set_player(lua_State* L);
+void load_game(char *str);
+void load_data();
+void load_saves();
+void esc();
